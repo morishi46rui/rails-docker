@@ -23,10 +23,10 @@ b:
 	docker compose exec backend bash
 
 modb:
-	docker compose run backend bash -c "bundle install"
+	docker compose exec backend bash -c "bundle install"
 
 test:
-	docker compose run backend bash -c "RAILS_ENV=test bundle exec rspec"
+	docker compose exec backend bash -c "RAILS_ENV=test bundle exec rspec"
 
 swagger:
-	docker compose run backend bash -c "RAILS_ENV=test bundle exec rake rswag:specs:swaggerize"
+	docker compose exec backend bash -c "RAILS_ENV=test bundle exec rake rswag:specs:swaggerize"

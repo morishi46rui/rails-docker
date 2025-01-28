@@ -4,14 +4,23 @@ info:
   title: API V1
   version: v1
 paths:
-  "/examples":
+  "/api/v1/examples":
     get:
-      summary: Retrieves examples
+      summary: Retrieve examples
       tags:
       - Examples
       responses:
         '200':
-          description: examples found
+          description: successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                - message
 servers:
 - url: https://{defaultHost}
   variables:
