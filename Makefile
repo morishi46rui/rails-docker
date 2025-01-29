@@ -30,3 +30,14 @@ test:
 
 swagger:
 	docker compose exec backend bash -c "RAILS_ENV=test bundle exec rake rswag:specs:swaggerize"
+
+controller:
+	docker compose exec backend bash -c "bundle exec rails g controller api/v1/$(name)"
+
+# コントローラーを走査してルーティングを自動生成
+route:
+	docker compose exec backend bash -c "./script/generate_routes.sh"
+
+# 組み合わせてコントローラーとルートを同時生成
+api:
+	make controller name=$(name) && make route name=$(name)
