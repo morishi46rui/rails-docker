@@ -310,4 +310,26 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+  #
+  # API 専用の場合、以下の設定で HTML 用レスポンスを無効化
+  config.navigational_formats = []
+
+  # JWT の設定
+  config.jwt do |jwt|
+    # 秘密鍵。ここでは Rails の secret_key_base を利用しています。
+    jwt.secret = Rails.application.credentials.fetch(:secret_key_base)
+
+    # JWT を発行（dispatch）するリクエストのパスを指定
+    jwt.dispatch_requests = [
+      ['POST', %r{^/api/v1/users/sign_in$}]
+    ]
+
+    # JWT を破棄（revocation）するリクエストのパスを指定
+    jwt.revocation_requests = [
+      ['DELETE', %r{^/api/v1/users/sign_out$}]
+    ]
+
+    # JWT の有効期限（例：1日）
+    jwt.expiration_time = 1.day.to_i
+  end
 end
