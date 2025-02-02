@@ -37,7 +37,3 @@ controller:
 # コントローラーを走査してルーティングを自動生成
 route:
 	docker compose exec backend bash -c "./script/generate_routes.sh"
-
-# 組み合わせてコントローラーとルートを同時生成
-api:
-	make controller name=$(name) && make route name=$(name)
